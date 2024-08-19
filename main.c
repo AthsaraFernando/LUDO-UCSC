@@ -2,15 +2,43 @@
 #include "types.h"
 
 int main() {
-    struct Player players[NUM_PLAYERS];
+    struct Player players[4];
 
-    // Initialize players and set their starting positions
-    initializePlayers(players);
+    // Initialize players and pieces
+    initialize_players(players);
 
-    // Display the positions of all the pieces
-    displayPositions(players);
+    // Print initial game state
+    printf("Initial Game State:\n");
+    print_game_state(players);
 
-    // Game logic would go here...
+    // Example of moving a piece
+    printf("\nMoving Player R's piece 0 by 5 steps...\n");
+    move_piece(&players[0], 0, 5);
+
+    // Print updated game state
+    printf("\nUpdated Game State:\n");
+    print_game_state(players);
+
+    // Example of moving a piece
+    printf("\nMoving Player G's piece 0 by 5 steps...\n");
+    move_piece(&players[1], 0, 7);
+
+    // Print updated game state
+    printf("\nUpdated Game State:\n");
+    print_game_state(players);
+
+
+
+    // Example of moving a piece
+    printf("\nMoving Player R's piece 0 by 5 steps...\n");
+    move_piece(&players[0], 0, 5);
+
+    // Print updated game state
+    printf("\nUpdated Game State:\n");
+    print_game_state(players);
+
+
+
 
     return 0;
 }
