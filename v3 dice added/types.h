@@ -19,7 +19,6 @@ void initialize_players(struct Player players[]);
 void move_piece(struct Player *player, int piece_index, int steps);
 void print_game_state(struct Player players[]);
 int roll_dice(); // Function prototype for rolling a dice
-void initialize_random(); // Function prototype for initializing random number generator
 
 #endif
 
