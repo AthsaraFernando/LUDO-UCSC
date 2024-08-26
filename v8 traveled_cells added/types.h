@@ -7,7 +7,6 @@ struct Piece {
     int current_position;      // 0-51 (Position on the board)
     int traveled_cells;        // number of traveled cells 
     int starting_position;     // Starting positions: Y=2, B=15, R=28, G=41
-    int home_start;     // Starting positions: Y=2, B=15, R=28, G=41
     int no_captured;           // Number of pieces captured by this piece, initialized to 0
     int clockwise;             // Moving direction (1 for clockwise, 0 for counterclockwise), not initialized yet
     int approach_position;     // Approach cell position: R=26, G=39, Y=0, B=13

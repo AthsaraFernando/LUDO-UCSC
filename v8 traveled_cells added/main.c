@@ -34,7 +34,7 @@ int main() {
     printf("\n");
 
     // Example gameplay loop for each player in order
-    for (int round = 0; round < 25; round++) { // Example: 5 rounds of play
+    for (int round = 0; round < 5; round++) { // Example: 5 rounds of play
         printf("\nRound %d\n", round + 1);
         for (int i = 0; i < 4; i++) {
             int current_player_index = player_order[i];
