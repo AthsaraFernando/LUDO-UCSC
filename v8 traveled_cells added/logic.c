@@ -17,7 +17,6 @@ void initialize_players(struct Player players[]) {
         players[0].pieces[i].current_position = 28;
         players[0].pieces[i].traveled_cells = 0;
         players[0].pieces[i].starting_position = 28;
-        players[0].pieces[i].home_start = 95;
         players[0].pieces[i].no_captured = 0;
         players[0].pieces[i].approach_position = 26;
         players[0].pieces[i].approach_counter = 0;
@@ -31,7 +30,6 @@ void initialize_players(struct Player players[]) {
         players[1].pieces[i].current_position = 41;
         players[1].pieces[i].traveled_cells = 0;
         players[1].pieces[i].starting_position = 41;
-        players[1].pieces[i].home_start = 195;
         players[1].pieces[i].no_captured = 0;
         players[1].pieces[i].approach_position = 39;
         players[1].pieces[i].approach_counter = 0;
@@ -45,7 +43,6 @@ void initialize_players(struct Player players[]) {
         players[2].pieces[i].current_position = 2;
         players[2].pieces[i].traveled_cells = 0;
         players[2].pieces[i].starting_position = 2;
-        players[2].pieces[i].home_start = 295;
         players[2].pieces[i].no_captured = 0;
         players[2].pieces[i].approach_position = 0;
         players[2].pieces[i].approach_counter = 0;
@@ -59,7 +56,6 @@ void initialize_players(struct Player players[]) {
         players[3].pieces[i].current_position = 15;
         players[3].pieces[i].traveled_cells = 0;
         players[3].pieces[i].starting_position = 15;
-        players[3].pieces[i].home_start = 395;
         players[3].pieces[i].no_captured = 0;
         players[3].pieces[i].approach_position = 13;
         players[3].pieces[i].approach_counter = 0;
@@ -69,23 +65,11 @@ void initialize_players(struct Player players[]) {
 
 // Move the specified piece forward by a given number of steps
 void move_piece_forward(struct Player *player, int piece_index, int steps) {
-	player->pieces[piece_index].traveled_cells += steps;	
-	if(player->pieces[piece_index].traveled_cells < 51){		
-		player->pieces[piece_index].current_position += steps;
-    		if (player->pieces[piece_index].current_position > 51) {
-        		player->pieces[piece_index].current_position %= 52; // Wrap around the board
-    		}
-	}
-	else{
-		if(player->pieces[piece_index].traveled_cells <= 56 ){
-			player->pieces[piece_index].current_position = player->pieces[piece_index].traveled_cells - 51 + player->pieces[piece_index].home_start;
-		}
-		else{
-			player->pieces[piece_index].traveled_cells -= steps;	
-
-		}
-	}
-	
+    player->pieces[piece_index].current_position += steps;
+    player->pieces[piece_index].traveled_cells += steps;
+    if (player->pieces[piece_index].current_position > 51) {
+        player->pieces[piece_index].current_position %= 52; // Wrap around the board
+    }
 }
 
 // Placeholder function for moving the specified piece backward
