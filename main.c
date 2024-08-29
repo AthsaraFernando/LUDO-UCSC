@@ -49,7 +49,7 @@ int main() {
             	printf("Player %c rolled a %d\n", players[current_player_index].playerid, dice_roll);
 	
 	    	//main play start	
-	    	play(&players[current_player_index], piece_index, dice_roll);
+	    	play(&players[current_player_index], piece_index, dice_roll, players);
             	
             	// Print updated game state
 		print_game_state(players);
