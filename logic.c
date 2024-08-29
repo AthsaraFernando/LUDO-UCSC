@@ -24,6 +24,7 @@ void initialize_players(struct Player players[]) {
         players[0].pieces[i].approach_counter = 0;
         players[0].pieces[i].six_counter = 0;
         players[0].pieces[i].in_base = 1;
+        players[0].pieces[i].land_same_cell = 0;
     }
 
     // Initialize Player G (Green)
@@ -39,6 +40,7 @@ void initialize_players(struct Player players[]) {
         players[1].pieces[i].approach_counter = 0;
         players[1].pieces[i].six_counter = 0;
         players[1].pieces[i].in_base = 1;
+        players[1].pieces[i].land_same_cell = 0;
     }
 
     // Initialize Player Y (Yellow)
@@ -54,6 +56,7 @@ void initialize_players(struct Player players[]) {
         players[2].pieces[i].approach_counter = 0;
         players[2].pieces[i].six_counter = 0;
         players[2].pieces[i].in_base = 1;
+        players[2].pieces[i].land_same_cell = 0;
     }
 
     // Initialize Player B (Blue)
@@ -68,6 +71,7 @@ void initialize_players(struct Player players[]) {
         players[3].pieces[i].approach_position = 13;
         players[3].pieces[i].approach_counter = 0;
         players[3].pieces[i].in_base = 1;
+        players[3].pieces[i].land_same_cell = 0;
     }
 }
 
@@ -102,28 +106,70 @@ void move_piece_forward(struct Player *player, int piece_index, int steps) {
 	
 }
 
+
+void land_on_same_cell(struct Player *player, int piece_index, int steps, struct Player players[]) {
+    //int destination = (player->pieces[piece_index].current_position + steps) % 52;
+	if((player->pieces[piece_index].current_position + steps) <52) {
+		int destination = (player->pieces[piece_index].current_position + steps);
+	}
+	else{
+		int destination = (player->pieces[piece_index].current_position + steps) % 52;
+
+	}
+	
+
+	for(int i = 0; i < 4; i++) {
+		for(int j = 0; j < 4; j++) {
+			if (players[i].pieces[j].current_position == destination ) {
+				if(players[i].playerid == player->playerid && j == piece_index){
+					player->pieces[piece_index].land_same_cell=1;	
+                			printf("Player %c's piece %d lands on the same cell as Player %c's piece %d \n",
+							player->playerid, piece_index, players[i].playerid, j);
+				}
+				else{
+					players[i].pieces[j].capturable == 1; 
+                			printf("Player %c's piece %d lands on the same cell as Player %c's piece %d \n", 
+							player->playerid, piece_index, players[i].playerid, j);
+					
+				}
+                printf("destination %d >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< \n",destination, 
+                       player->playerid, piece_index, players[i].playerid, j);
+            }
+        }
+    }
+}
+
+
 // Placeholder function for moving the specified piece backward
 void move_piece_backward(struct Player *player, int piece_index, int steps) {
     // Implementation will be provided later
 }
 
-void play(struct Player *player, int piece_index, int steps){
-	if(steps == 6){
-		
+void play(struct Player *player, int piece_index, int steps, struct Player players[]){
+	land_on_same_cell(player, piece_index, steps, players);	
+	if(steps == 6){	
 		if(player->pieces[piece_index].in_base ==1){
 			take_out_base(player, piece_index, steps);
 		}
-		else{
+		else{		
 			player->pieces[piece_index].six_counter +=1;
 			// Move the player's piece 0 by the dice roll value
             		printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps);
 			move_piece_forward(player, piece_index, steps);
-		}
+		} 
 	}
 	else{
 		// Move the player's piece 0 by the dice roll value
             	printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps); 
 	    	move_piece_forward(player, piece_index, steps);
+	}
+
+	// Resetting the resutls of land_on_same_cell function
+	player->pieces[piece_index].land_same_cell = 0;	
+	for(int i = 0; i < 4; i++) {
+		for(int j = 0; j < 4; j++) {
+			players[i].pieces[j].capturable == 1; 
+		}
 	}
 }
 
