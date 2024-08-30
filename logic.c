@@ -25,6 +25,7 @@ void initialize_players(struct Player players[]) {
         players[0].pieces[i].six_counter = 0;
         players[0].pieces[i].in_base = 1;
         players[0].pieces[i].land_same_color_cell = 0;
+        players[0].pieces[i].is_rolling_piece = 0;
     }
 
     // Initialize Player G (Green)
@@ -41,6 +42,7 @@ void initialize_players(struct Player players[]) {
         players[1].pieces[i].six_counter = 0;
         players[1].pieces[i].in_base = 1;
         players[1].pieces[i].land_same_color_cell = 0;
+        players[1].pieces[i].is_rolling_piece = 0;
     }
 
     // Initialize Player Y (Yellow)
@@ -57,6 +59,7 @@ void initialize_players(struct Player players[]) {
         players[2].pieces[i].six_counter = 0;
         players[2].pieces[i].in_base = 1;
         players[2].pieces[i].land_same_color_cell = 0;
+        players[2].pieces[i].is_rolling_piece = 0;
     }
 
     // Initialize Player B (Blue)
@@ -72,6 +75,7 @@ void initialize_players(struct Player players[]) {
         players[3].pieces[i].approach_position = 13;
         players[3].pieces[i].in_base = 1;
         players[3].pieces[i].land_same_color_cell = 0;
+        players[3].pieces[i].is_rolling_piece = 0;
     }
 }
 
@@ -115,12 +119,12 @@ void land_on_same_cell(struct Player *player, int piece_index, int steps, struct
 		for(int j = 0; j < 4; j++) {
 			if (players[i].pieces[j].current_position == destination ) {
 				if(players[i].playerid == player->playerid && j == piece_index){
-					player->pieces[piece_index].land_same_color_cell=1;	
+					player->pieces[piece_index].land_same_color_cell = 1;	
                 			printf("Player %c's piece %d lands on the same cell as Player %c's piece %d \n",
 							player->playerid, piece_index, players[i].playerid, j);
 				}
 				else{
-					players[i].pieces[j].capturable == 1; 
+					players[i].pieces[j].capturable = 1; 
                 			printf("Player %c's piece %d lands on the same cell as Player %c's piece %d \n", 
 							player->playerid, piece_index, players[i].playerid, j);
 					
@@ -137,12 +141,12 @@ void land_on_same_cell(struct Player *player, int piece_index, int steps, struct
 		for(int j = 0; j < 4; j++) {
 			if (players[i].pieces[j].current_position == destination ) {
 				if(players[i].playerid == player->playerid && j == piece_index){
-					player->pieces[piece_index].land_same_color_cell=1;	
+					player->pieces[piece_index].land_same_color_cell = 1;	
                 			printf("Player %c's piece %d lands on the same cell as Player %c's piece %d \n",
 							player->playerid, piece_index, players[i].playerid, j);
 				}
 				else{
-					players[i].pieces[j].capturable == 1; 
+					players[i].pieces[j].capturable = 1; 
                 			printf("Player %c's piece %d lands on the same cell as Player %c's piece %d \n", 
 							player->playerid, piece_index, players[i].playerid, j);
 					
@@ -162,17 +166,20 @@ void capture_piece(struct Player *player, int piece_index, int steps, struct Pla
 	for(int i = 0; i < 4; i++) {
 	for(int j = 0; j < 4; j++) {
 		if (players[i].pieces[j].capturable == 1) {
-		players[i].pieces[j].current_position = players[i].pieces[j].base_position; 	
-		players[i].pieces[j].traveled_cells = 0; 	
-		players[i].pieces[j].no_captured = 0; 	
-		players[i].pieces[j].in_base = 1; 	
-                printf("Player %c's piece %d lands on the same cell as Player %c's piece %d \n",player->playerid, piece_index, players[i].playerid, j);
+			players[i].pieces[j].current_position = players[i].pieces[j].base_position; 	
+			players[i].pieces[j].traveled_cells = 0; 	
+			players[i].pieces[j].no_captured = 0; 	
+			players[i].pieces[j].in_base = 1; 	
+           		printf("Player %c's piece %d lands on the same cell as Player %c's piece %d \n",player->playerid, piece_index, players[i].playerid, j);
+			printf("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+			printf("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+			printf("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
 
 
  
             
-			}	
-        	}}
+		}	
+        }}
 
 
 }
@@ -184,6 +191,8 @@ void move_piece_backward(struct Player *player, int piece_index, int steps) {
 
 void play(struct Player *player, int piece_index, int steps, struct Player players[]){
 	land_on_same_cell(player, piece_index, steps, players);	
+	capture_piece(player, piece_index, steps, players);	
+
 	if (player->playerid == 'R') { 
 	
 		if(steps == 6){	
@@ -207,7 +216,7 @@ void play(struct Player *player, int piece_index, int steps, struct Player playe
 		player->pieces[piece_index].land_same_color_cell = 0;	
 		for(int i = 0; i < 4; i++) {
 		for(int j = 0; j < 4; j++) {
-			players[i].pieces[j].capturable == 0; 
+			players[i].pieces[j].capturable = 0; 
 		}
 		}
 	}
@@ -233,7 +242,7 @@ void play(struct Player *player, int piece_index, int steps, struct Player playe
 		player->pieces[piece_index].land_same_color_cell = 0;	
 		for(int i = 0; i < 4; i++) {
 		for(int j = 0; j < 4; j++) {
-			players[i].pieces[j].capturable == 0; 
+			players[i].pieces[j].capturable = 0; 
 		}
 		}
 	}

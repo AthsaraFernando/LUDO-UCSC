@@ -16,6 +16,7 @@ struct Piece {
     int in_base;               // 1 if still in base, 0 if out of the base
     int land_same_color_cell;
     int capturable;
+    int is_rolling_piece;
 };
 
 // Define the Player struct, which contains an array of 4 Piece structs
