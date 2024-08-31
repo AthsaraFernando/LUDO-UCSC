@@ -25,10 +25,7 @@ void initialize_players(struct Player players[]) {
         players[0].pieces[i].six_counter = 0;
         players[0].pieces[i].in_base = 1;
         players[0].pieces[i].land_same_color_cell = 0;
-        players[0].pieces[i].capturable = 0;
-        players[0].pieces[i].capture_ability = 0;
         players[0].pieces[i].is_rolling_piece = 0;
-        players[0].pieces[i].finished = 0;
     }
 
     // Initialize Player G (Green)
@@ -45,10 +42,7 @@ void initialize_players(struct Player players[]) {
         players[1].pieces[i].six_counter = 0;
         players[1].pieces[i].in_base = 1;
         players[1].pieces[i].land_same_color_cell = 0;
-        players[1].pieces[i].capturable = 0;
-        players[1].pieces[i].capture_ability = 0;
         players[1].pieces[i].is_rolling_piece = 0;
-        players[1].pieces[i].finished = 0;
     }
 
     // Initialize Player Y (Yellow)
@@ -65,10 +59,7 @@ void initialize_players(struct Player players[]) {
         players[2].pieces[i].six_counter = 0;
         players[2].pieces[i].in_base = 1;
         players[2].pieces[i].land_same_color_cell = 0;
-        players[2].pieces[i].capturable = 0;
-        players[2].pieces[i].capture_ability = 0;
         players[2].pieces[i].is_rolling_piece = 0;
-        players[2].pieces[i].finished = 0;
     }
 
     // Initialize Player B (Blue)
@@ -84,10 +75,7 @@ void initialize_players(struct Player players[]) {
         players[3].pieces[i].approach_position = 13;
         players[3].pieces[i].in_base = 1;
         players[3].pieces[i].land_same_color_cell = 0;
-        players[3].pieces[i].capturable = 0;
-        players[3].pieces[i].capture_ability = 0;
         players[3].pieces[i].is_rolling_piece = 0;
-        players[3].pieces[i].finished = 0;
     }
 }
 
@@ -120,10 +108,6 @@ void move_piece_forward(struct Player *player, int piece_index, int steps) {
 		}
 	}
 	
-	if(player->pieces[piece_index].traveled_cells == 56){    // player has reached the final home  
-		player->pieces[piece_index].finished = 1;
-		
-	}
 }
 
 
@@ -141,7 +125,6 @@ void land_on_same_cell(struct Player *player, int piece_index, int steps, struct
 				}
 				else{
 					players[i].pieces[j].capturable = 1; 
-					player->pieces[piece_index].capture_ability = 1;	
                 			printf("Player %c's piece %d lands on the same cell as Player %c's piece %d \n", 
 							player->playerid, piece_index, players[i].playerid, j);
 					
@@ -164,7 +147,6 @@ void land_on_same_cell(struct Player *player, int piece_index, int steps, struct
 				}
 				else{
 					players[i].pieces[j].capturable = 1; 
-					player->pieces[piece_index].capture_ability = 1;	
                 			printf("Player %c's piece %d lands on the same cell as Player %c's piece %d \n", 
 							player->playerid, piece_index, players[i].playerid, j);
 					
@@ -233,7 +215,6 @@ void play(struct Player *player, int piece_index, int steps, struct Player playe
 
 		// Resetting the resutls of land_on_same_cell function
 		player->pieces[piece_index].land_same_color_cell = 0;	
-		player->pieces[piece_index].capture_ability = 0;	
 		for(int i = 0; i < 4; i++) {
 		for(int j = 0; j < 4; j++) {
 			players[i].pieces[j].capturable = 0; 
@@ -260,7 +241,6 @@ void play(struct Player *player, int piece_index, int steps, struct Player playe
 
 		// Resetting the resutls of land_on_same_cell function
 		player->pieces[piece_index].land_same_color_cell = 0;	
-		player->pieces[piece_index].capture_ability = 0;	
 		for(int i = 0; i < 4; i++) {
 		for(int j = 0; j < 4; j++) {
 			players[i].pieces[j].capturable = 0; 

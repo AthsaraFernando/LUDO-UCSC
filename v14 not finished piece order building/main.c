@@ -50,79 +50,33 @@ int main() {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Green Player Behaviour
 	if(current_player_index == 1){
+
 		for(int i=0; i<4 ; i++){
-			land_on_same_cell(&players[current_player_index], i, dice_roll, players);
-			if(players[1].pieces[i].finished != 1 && players[1].pieces[i].land_same_color_cell == 0){
-				if(players[1].pieces[i].in_base == 1){
-					if( dice_roll == 6){
-						piece_index = i;
-						// Resetting the resutls of land_on_same_cell function
-						players[1].pieces[i].land_same_color_cell = 0;	
-						players[1].pieces[i].capture_ability = 0;	
-						for(int k = 0; k < 4; k++) {
-							for(int j = 0; j < 4; j++) {
-								players[k].pieces[j].capturable = 0; 
-							}
-						}
-						break;
-					}	
-				}
-				else{
-					if(players[1].pieces[i].capture_ability == 0){
-						if(players[1].pieces[i].pieceid == round % 4){
-							piece_index = round % 4;
-							break;
-						}
-						else{ 
-							piece_index = players[1].pieces[i].pieceid;
-							// Resetting the resutls of land_on_same_cell function
-							players[1].pieces[i].land_same_color_cell = 0;	
-							players[1].pieces[i].capture_ability = 0;	
-							for(int k = 0; k < 4; k++) {
-								for(int j = 0; j < 4; j++) {
-									players[k].pieces[j].capturable = 0; 
-								}
-							}
-							break;
-						}
-					}
-				}
+		if(players[1].pieces[i].finished != 1){
+			if(players[1].pieces[i].in_base == 1){
+				if( dice_roll == 6){
+					piece_index = i;
+					break;
+
+				}	
 			}
-			// Resetting the resutls of land_on_same_cell function
-			players[1].pieces[i].land_same_color_cell = 0;	
-			players[1].pieces[i].capture_ability = 0;	
-			for(int k = 0; k < 4; k++) {
-				for(int j = 0; j < 4; j++) {
-					players[k].pieces[j].capturable = 0; 
+			else{
+				
+				if(players[1].pieces[i].pieceid == round % 4){
+					piece_index = round % 4;
+					break;
+					
+				}
+				else{ 
+					piece_index = players[1].pieces[i].pieceid;
+					break;
+						
 				}
 			}
 		}
-
-		if(piece_index == -1){
-			for(int i=0; i<4 ; i++){
-				if(players[1].pieces[i].finished != 1){
-					if(players[1].pieces[i].in_base == 0){
-						if(players[1].pieces[i].capture_ability == 1){
-							if(players[1].pieces[i].pieceid == round % 4){
-								piece_index = round % 4;
-							}
-							else{ 
-								piece_index = players[1].pieces[i].pieceid;
-							}
-						}
-					}
-				}			// Resetting the resutls of land_on_same_cell function
-			players[1].pieces[i].land_same_color_cell = 0;	
-			players[1].pieces[i].capture_ability = 0;	
-			for(int k = 0; k < 4; k++) {
-				for(int j = 0; j < 4; j++) {
-					players[k].pieces[j].capturable = 0; 
-				}
-			}
-			}
-		}	
+		}
+		
 	}
 			
 	else if(current_player_index == 0){
