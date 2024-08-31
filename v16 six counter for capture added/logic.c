@@ -152,7 +152,7 @@ void move_piece_backward(struct Player *player, int piece_index, int steps) {
 		}
 	}
 	
-	if(player->pieces[piece_index].traveled_cells == 60){    // player has reached the final home  
+	if(player->pieces[piece_index].traveled_cells == 56){    // player has reached the final home  
 		player->pieces[piece_index].finished = 1;
 		
 	}
@@ -178,7 +178,7 @@ void land_on_same_cell(struct Player *player, int piece_index, int steps, struct
 							player->playerid, piece_index, players[i].playerid, j);
 					
 				}
-                printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
+                printf("destination %d >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< \n",destination,  player->playerid, piece_index, players[i].playerid, j);
             
 			}	
         	}}
@@ -201,7 +201,7 @@ void land_on_same_cell(struct Player *player, int piece_index, int steps, struct
 							player->playerid, piece_index, players[i].playerid, j);
 					
 				}
-                printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
+                printf("destination %d >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< \n",destination,  player->playerid, piece_index, players[i].playerid, j);
             
 			}	
         	}}
@@ -240,27 +240,13 @@ int coin_toss() {
 
 void play(struct Player *player, int piece_index, int steps, struct Player players[]){
 	land_on_same_cell(player, piece_index, steps, players);	
-	int on_board_count = 0;
-	for(int l=0; l<4; l++){
-		if(player->pieces[l].in_base != 1){
-			on_board_count += 1;
-		}
-	}
 
 
 	if(player->pieces[piece_index].capture_ability == 1){
 		player->pieces[piece_index].six_counter +=1;
 		if(steps == 6){	
-			if(player->pieces[piece_index].in_base ==1){	
-				printf("%c moves piece %d to the starting point.\n", player->playerid, piece_index);
+			if(player->pieces[piece_index].in_base ==1){
 				take_out_base(player, piece_index, steps);
-				int on_board_count = 0;
-				for(int l=0; l<4; l++){
-					if(player->pieces[l].in_base != 1){
-						on_board_count += 1;
-					}
-				}
-				printf("%c player now has %d/4 of pieces on the board and %d/4 pieces on the base.\n", player->playerid, on_board_count, 4-on_board_count);
 				player->pieces[piece_index].clockwise = coin_toss();
 				capture_piece(player, piece_index, steps, players);
 			}
@@ -268,37 +254,24 @@ void play(struct Player *player, int piece_index, int steps, struct Player playe
 				// Move the player's piece 0 by the dice roll value
             			printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps);
 				if(player->pieces[piece_index].clockwise == 1){
-					char direction[] = "clockwise";
-            				printf(" %c Player moves piece %d from location %d ", player->playerid, piece_index ,player->pieces[piece_index].current_position);
 					move_piece_forward(player, piece_index, steps);
-            				printf("to %d by %d units %s direction\n",player->pieces[piece_index].current_position, steps, direction);
 				}
 				else{
-					char direction[] = "counter-clockwise";
-            				printf(" %c Player moves piece %d from location %d ", player->playerid, piece_index ,player->pieces[piece_index].current_position);
 					move_piece_backward(player, piece_index, steps);
-            				printf("to %d by %d units %s direction\n",player->pieces[piece_index].current_position, steps, direction);
 				}
 				capture_piece(player, piece_index, steps, players);
 			} 
 		}
 		else{
-			// Move the player's pieces by the dice roll value 
-			if(player->pieces[piece_index].in_base != 1){
-				if(player->pieces[piece_index].clockwise == 1){
-					char direction[] = "clockwise";
-            				printf(" %c Player moves piece %d from location %d ", player->playerid, piece_index ,player->pieces[piece_index].current_position);
-	    				move_piece_forward(player, piece_index, steps);
-            				printf("to %d by %d units %s direction\n",player->pieces[piece_index].current_position, steps, direction);
-				}
-				else{
-					char direction[] = "counter-clockwise";
-            				printf(" %c Player moves piece %d from location %d ", player->playerid, piece_index ,player->pieces[piece_index].current_position);
-	    				move_piece_backward(player, piece_index, steps);
-            				printf("to %d by %d units %s direction\n",player->pieces[piece_index].current_position, steps, direction);
-				}
-				capture_piece(player, piece_index, steps, players);
+			// Move the player's piece 0 by the dice roll value
+            		printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps); 
+			if(player->pieces[piece_index].clockwise == 1){
+	    			move_piece_forward(player, piece_index, steps);
 			}
+			else{
+	    			move_piece_backward(player, piece_index, steps);
+			}
+			capture_piece(player, piece_index, steps, players);
 		}
 
 		// Resetting the resutls of land_on_same_cell function
@@ -313,49 +286,30 @@ void play(struct Player *player, int piece_index, int steps, struct Player playe
 	else{
 		if(steps == 6){	
 			if(player->pieces[piece_index].in_base ==1){
-				printf("%c moves piece %d to the starting point.\n", player->playerid, piece_index);
 				player->pieces[piece_index].six_counter +=1;
 				take_out_base(player, piece_index, steps);
-				int on_board_count = 0;
-				for(int l=0; l<4; l++){
-					if(player->pieces[l].in_base != 1){
-						on_board_count += 1;
-					}
-				}
-				printf("%c player now has %d/4 of pieces on the board and %d/4 pieces on the base.\n\n", player->playerid, on_board_count, 4-on_board_count);
 				player->pieces[piece_index].clockwise = coin_toss();
 			}
 			else{		
 				player->pieces[piece_index].six_counter +=1;
+				// Move the player's piece 0 by the dice roll value
+            			printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps);
 				if(player->pieces[piece_index].clockwise == 1){
-					char direction[] = "clockwise";
-            				printf(" %c Player moves piece %d from location %d ", player->playerid, piece_index ,player->pieces[piece_index].current_position);
 					move_piece_forward(player, piece_index, steps);
-            				printf("to %d by %d units %s direction\n",player->pieces[piece_index].current_position, steps, direction);
 				}
 				else{
-					char direction[] = "counter-clockwise";
-            				printf(" %c Player moves piece %d from location %d ", player->playerid, piece_index ,player->pieces[piece_index].current_position);
 					move_piece_backward(player, piece_index, steps);
-            				printf("to %d by %d units %s direction\n",player->pieces[piece_index].current_position, steps, direction);
 				}
 			} 
 		}
 		else{
 			// Move the player's piece 0 by the dice roll value
-			if(player->pieces[piece_index].in_base != 1){
-				if(player->pieces[piece_index].clockwise == 1){
-					char direction[] = "clockwise";
-        				printf(" %c Player moves piece %d from location %d ", player->playerid, piece_index ,player->pieces[piece_index].current_position);
-	    				move_piece_forward(player, piece_index, steps);
-    					printf("to %d by %d units %s direction\n",player->pieces[piece_index].current_position, steps, direction);
-				}	
-				else{
-					char direction[] = "counter-clockwise";
-            				printf(" %c Player moves piece %d from location %d ", player->playerid, piece_index ,player->pieces[piece_index].current_position);
-	    				move_piece_backward(player, piece_index, steps);
-            					printf("to %d by %d units %s direction\n",player->pieces[piece_index].current_position, steps, direction);
-				}
+            		printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps); 
+			if(player->pieces[piece_index].clockwise == 1){
+	    			move_piece_forward(player, piece_index, steps);
+			}	
+			else{
+	    			move_piece_backward(player, piece_index, steps);
 			}
 		}
 
@@ -532,7 +486,6 @@ void print_game_state(struct Player players[]) {
                    players[i].pieces[j].traveled_cells);
         }
     }
-    printf("\n");
 }
 
 // Roll a dice and return a random number between 1 and 6
@@ -564,28 +517,4 @@ void determine_player_order(int starting_player, int order[]) {
     }
 }
 
-int check_game_on(struct Player players[]) {
-    int finished_player_count = 0; // Initialize count to zero
-
-    for (int a = 0; a < 4; a++) {  // Iterate through each player
-        int player_finished = 1; // Assume player is finished
-
-        for (int b = 0; b < 1; b++) {  // Iterate through each piece of the player
-            if (players[a].pieces[b].finished != 1) { // If any piece is not finished
-                player_finished = 0; // Player is not finished
-                break; // No need to check further pieces for this player
-            }
-        }
-
-        if (player_finished) { // If all pieces are finished
-            finished_player_count++; // Increment finished player count
-        }
-    }
-
-    if (finished_player_count == 3) { // If exactly three players are finished
-        return 0; // Game ends
-    }
-
-    return 1; // Game continues
-}
 
