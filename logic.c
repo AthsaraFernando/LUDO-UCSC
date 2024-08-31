@@ -126,6 +126,33 @@ void move_piece_forward(struct Player *player, int piece_index, int steps) {
 	}
 }
 
+// Move the specified piece backward by a given number of steps
+void move_piece_backward(struct Player *player, int piece_index, int steps) {
+	if(player->pieces[piece_index].in_base == 0){
+		player->pieces[piece_index].traveled_cells += steps;	
+		if(player->pieces[piece_index].traveled_cells < 55){		
+			player->pieces[piece_index].current_position -= steps;
+    			if (player->pieces[piece_index].current_position < 0) {
+        			player->pieces[piece_index].current_position += 52; // Wrap around the board
+    			}
+		}
+		else{
+			if(player->pieces[piece_index].traveled_cells <= 60 ){
+				player->pieces[piece_index].current_position = player->pieces[piece_index].traveled_cells - 55 + player->pieces[piece_index].home_start;
+			}
+			else{
+				player->pieces[piece_index].traveled_cells -= steps;	
+	
+			}
+		}
+	}
+	
+	if(player->pieces[piece_index].traveled_cells == 56){    // player has reached the final home  
+		player->pieces[piece_index].finished = 1;
+		
+	}
+}
+
 
 void land_on_same_cell(struct Player *player, int piece_index, int steps, struct Player players[]) {
 	if(player->pieces[piece_index].in_base == 0 && player->pieces[piece_index].current_position <52){
@@ -202,11 +229,7 @@ void capture_piece(struct Player *player, int piece_index, int steps, struct Pla
 
 }
 
-// Placeholder function for moving the specified piece backward
-void move_piece_backward(struct Player *player, int piece_index, int steps) {
-    // Implementation will be provided later
-}
-
+ 
 
 void play(struct Player *player, int piece_index, int steps, struct Player players[]){
 	land_on_same_cell(player, piece_index, steps, players);	
@@ -216,6 +239,7 @@ void play(struct Player *player, int piece_index, int steps, struct Player playe
 	
 		if(steps == 6){	
 			if(player->pieces[piece_index].in_base ==1){
+				player->pieces[piece_index].six_counter +=1;
 				take_out_base(player, piece_index, steps);
 			}
 			else{		
@@ -243,6 +267,7 @@ void play(struct Player *player, int piece_index, int steps, struct Player playe
 	else if(player->playerid != 'G'){ 
 		if(steps == 6){	
 			if(player->pieces[piece_index].in_base ==1){
+				player->pieces[piece_index].six_counter +=1;
 				take_out_base(player, piece_index, steps);
 			}
 			else{		
@@ -270,6 +295,7 @@ void play(struct Player *player, int piece_index, int steps, struct Player playe
 	else if(player->playerid != 'Y'){ 
 		if(steps == 6){	
 			if(player->pieces[piece_index].in_base ==1){
+				player->pieces[piece_index].six_counter +=1;
 				take_out_base(player, piece_index, steps);
 			}
 			else{		
@@ -297,6 +323,7 @@ void play(struct Player *player, int piece_index, int steps, struct Player playe
 		else if(player->playerid != 'B'){ 
 		if(steps == 6){	
 			if(player->pieces[piece_index].in_base ==1){
+				player->pieces[piece_index].six_counter +=1;
 				take_out_base(player, piece_index, steps);
 			}
 			else{		
