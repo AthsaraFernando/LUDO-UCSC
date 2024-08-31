@@ -31,6 +31,7 @@ struct Player {
 void initialize_players(struct Player players[]);
 void take_out_base(struct Player *player, int piece_index, int steps);
 void move_piece_forward(struct Player *player, int piece_index, int steps);
+void move_piece_backward(struct Player *player, int piece_index, int steps);
 void play(struct Player *player, int piece_index, int steps, struct Player players[]);
 void land_on_same_cell(struct Player *player, int piece_index, int steps, struct Player players[]);
 void print_game_state(struct Player players[]);

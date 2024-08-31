@@ -34,8 +34,9 @@ int main() {
     printf("\n");
 
     // Example gameplay loop for each player in order
-    for (int round = 0; round < 75; round++) { // Example: 5 rounds of play
+    for (int round = 0; round < 30; round++) { // Example: 5 rounds of play
 	int piece_index = -1;
+	
 
 
         printf("\nRound %d\n", round + 1);
@@ -50,8 +51,12 @@ int main() {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Green Player Behaviour
+	// Behaviour of Green Player
 	if(current_player_index == 1){
+		//piece_index = round % 4;		
+		piece_index = 0;	
+		printf("Piece Index = %d\n", piece_index);
+	/*
 		for(int i=0; i<4 ; i++){
 			land_on_same_cell(&players[current_player_index], i, dice_roll, players);
 			if(players[1].pieces[i].finished != 1 && players[1].pieces[i].land_same_color_cell == 0){
@@ -113,30 +118,45 @@ int main() {
 							}
 						}
 					}
-				}			// Resetting the resutls of land_on_same_cell function
-			players[1].pieces[i].land_same_color_cell = 0;	
-			players[1].pieces[i].capture_ability = 0;	
-			for(int k = 0; k < 4; k++) {
-				for(int j = 0; j < 4; j++) {
-					players[k].pieces[j].capturable = 0; 
+				}			
+				// Resetting the resutls of land_on_same_cell function
+				players[1].pieces[i].land_same_color_cell = 0;	
+				players[1].pieces[i].capture_ability = 0;	
+				for(int k = 0; k < 4; k++) {
+					for(int j = 0; j < 4; j++) {
+						players[k].pieces[j].capturable = 0; 
+					}
 				}
 			}
-			}
 		}	
+	*/
 	}
-			
+	
+
+
+	
+	
+	// Behaviour of Red Player
 	else if(current_player_index == 0){
-		piece_index = 0;
+		//piece_index = round % 4;	
+		piece_index = 0;	
 		printf("Piece Index = %d\n", piece_index);
 	}	
+
+	// Behaviour of Yellow Player
 	else if(current_player_index == 2){
-		piece_index = 0;
+		//piece_index = round % 4;
+		piece_index = 0;	
 		printf("Piece Index = %d\n", piece_index);
 	}	
+
+	// Behaviour of Blue Player
 	else if(current_player_index == 3){
-		piece_index = round % 4;
+		//piece_index = round % 4;
+		piece_index = 0;	
 		printf("Piece Index = %d\n", piece_index);
 	}
+	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	    	
 	    	//main play start	
