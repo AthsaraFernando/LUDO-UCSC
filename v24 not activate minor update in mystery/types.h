@@ -18,9 +18,6 @@ struct Piece {
     int capturable;            // Means vulnarable to be captured by another player
     int capture_ability;       // Does have the ability to capture another player's piece 
     int is_rolling_piece;
-    //int energized;
-    //int sick;
-    //int kotuwa_paused;
     int finished;
 };
 
@@ -45,8 +42,7 @@ void initialize_random(); // Function prototype for initializing random number g
 int determine_starting_player(int initial_rolls[]);
 void determine_player_order(int starting_player, int player_order[]);
 void run_game();
-void mystery_cell_generate(struct Player players[]);
-void activate_mystery(struct Player *player, int piece_index, struct Player players[]);
+void mystery_cell_generate(struct Player players[]); 
 
 #endif
 
