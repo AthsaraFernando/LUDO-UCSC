@@ -35,9 +35,6 @@ void initialize_players(struct Player players[]) {
             		players[j].pieces[i].capturable = 0;
             		players[j].pieces[i].capture_ability = 0;
             		players[j].pieces[i].is_rolling_piece = 0;
-            		//players[j].pieces[i].energized = 0;
-            		//players[j].pieces[i].sick = 0;
-            		//players[j].pieces[i].kotuwa_paused = 0;
             		players[j].pieces[i].finished = 0;
         	}
     	}
@@ -436,22 +433,14 @@ void mystery_cell_generate(struct Player players[]) {
 	printf("Mystery cell is :%d\n",mystery_cell);
 }
 
-/*
+
 void activate_mystery(struct Player *player, int piece_index, struct Player players[]){
 	int place_number = (rand() % 6) + 1;
 	int teleported_cell_count =0;
-	int toss;  // to check what happens in Bhawana (energized or sick)
 	char place_name[30]="";
 	if(place_number == 1){
 		strcpy(place_name, "Bhawana");
 		player->pieces[piece_index].current_position = 9; // 9 is the cell of the Bhawana
-		toss = coin_toss();
-		if(toss == 1){
-			player->pieces[piece_index].energized= 1; // if toss is 1 then the player gets energized
-		}
-		else{
-			player->pieces[piece_index].sick = 1; // if toss is 1 then the player gets energized
-		}
 		if(player->pieces[piece_index].clockwise == 1){
 			if(player->pieces[piece_index].current_position <= 9){
 				teleported_cell_count = 9 - player->pieces[piece_index].current_position ;
@@ -478,7 +467,6 @@ void activate_mystery(struct Player *player, int piece_index, struct Player play
 	else if(place_number == 2){
 		strcpy(place_name, "Kotuwa");
 		player->pieces[piece_index].current_position = 27; // 27 is the cell of the Kotuwa
-		player->pieces[piece_index].kotuwa_paused = 1; // if toss is 1 then the player gets energized
 		if(player->pieces[piece_index].clockwise == 1){
 			if(player->pieces[piece_index].current_position <= 27){
 				teleported_cell_count = 27 - player->pieces[piece_index].current_position ;
@@ -504,7 +492,6 @@ void activate_mystery(struct Player *player, int piece_index, struct Player play
 		strcpy(place_name, "Pita-Kotuwa");
 		player->pieces[piece_index].current_position = 46; // 46 is the cell of the Pita-Kotuwa
 		if(player->pieces[piece_index].clockwise == 1){
-			player->pieces[piece_index].clockwise = 0; // if toss is 1 then the player gets energized
 			if(player->pieces[piece_index].current_position <= 46){
 				teleported_cell_count = 46 - player->pieces[piece_index].current_position ;
 				player->pieces[piece_index].traveled_cells += teleported_cell_count;
@@ -548,7 +535,7 @@ void activate_mystery(struct Player *player, int piece_index, struct Player play
 	}
 }
 
-*/
+
 
 
 //main game running function
