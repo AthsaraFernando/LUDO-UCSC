@@ -11,14 +11,12 @@ void initialize_random() {
 
 // Initialize the players and their pieces
 void initialize_players(struct Player players[]) {
-	// data for initialize the structs variables are stored in arrays to reduce the code lines/
 	char player_ids[4] = {'R', 'G', 'Y', 'B'};
     	int starting_positions[4] = {28, 41, 2, 15};
     	int home_starts[4] = {95, 195, 295, 395};
     	int approach_positions[4] = {26, 39, 0, 13};
     	int base_positions[4] = {-1, -2, -3, -4};
-    	
-	// initialization of the variables of Structs
+    
     	for (int j = 0; j < 4; j++) {
         	players[j].playerid = player_ids[j];
         	for (int i = 0; i < 4; i++) {
@@ -82,15 +80,15 @@ void move_piece_forward(struct Player *player, int piece_index, int steps) {
 
 // Move the specified piece backward by a given number of steps
 void move_piece_backward(struct Player *player, int piece_index, int steps) {
-	if(player->pieces[piece_index].in_base == 0){ 		// checks if the piece is not in the base
+	if(player->pieces[piece_index].in_base == 0){
 		player->pieces[piece_index].traveled_cells += steps;	
-		if(player->pieces[piece_index].traveled_cells < 55){		// when the traveled cells are below 55 that means still in the standard path
+		if(player->pieces[piece_index].traveled_cells < 55){		
 			player->pieces[piece_index].current_position -= steps;
     			if (player->pieces[piece_index].current_position < 0) {
         			player->pieces[piece_index].current_position += 52; // Wrap around the board
     			}
 		}
-		else{		// this is when the pieces are in the home straight
+		else{
 			if(player->pieces[piece_index].traveled_cells <= 60 ){
 				player->pieces[piece_index].current_position = player->pieces[piece_index].traveled_cells - 55 + player->pieces[piece_index].home_start;
 			}
@@ -115,13 +113,13 @@ void land_on_same_cell(struct Player *player, int piece_index, int steps, struct
 			for(int j = 0; j < 4; j++) {
 				if (players[i].pieces[j].current_position == destination ) {
 					if(players[i].playerid == player->playerid && j == piece_index){
-						player->pieces[piece_index].land_same_color_cell = 1;	// triggers that the piece will land on a same color piece
+						player->pieces[piece_index].land_same_color_cell = 1;	
                 				printf("Player %c's piece %d lands on the same cell as Player %c's piece %d \n",
 								player->playerid, piece_index, players[i].playerid, j);
 					}
 					else{
-						players[i].pieces[j].capturable = 1; 	// triggers that this piece is vulnarable to be captured by another piece
-						player->pieces[piece_index].capture_ability = 1; // this triggers that the piece can capture another piece	
+						players[i].pieces[j].capturable = 1; 
+						player->pieces[piece_index].capture_ability = 1;	
 					}
 				}	
         		}	
@@ -133,13 +131,13 @@ void land_on_same_cell(struct Player *player, int piece_index, int steps, struct
 			for(int j = 0; j < 4; j++) {
 				if (players[i].pieces[j].current_position == destination ) {
 					if(players[i].playerid == player->playerid && j == piece_index){
-						player->pieces[piece_index].land_same_color_cell = 1;// triggers piece will land on a same color piece	
+						player->pieces[piece_index].land_same_color_cell = 1;	
                 				printf("Player %c's piece %d lands on the same cell as Player %c's piece %d \n",
 						player->playerid, piece_index, players[i].playerid, j);
 					}
 					else{
-						players[i].pieces[j].capturable = 1;   		// triggers this piece is vulnarable to be captured by another piece
-						player->pieces[piece_index].capture_ability = 1;	// triggers that the piece can capture another pice
+						players[i].pieces[j].capturable = 1; 
+						player->pieces[piece_index].capture_ability = 1;	
                 			}
 				}	
         		}
@@ -153,7 +151,6 @@ void capture_piece(struct Player *player, int piece_index, int steps, struct Pla
 	int on_board_count = 0;
 	for(int i = 0; i < 4; i++) {
 		for(int j = 0; j < 4; j++) {
-			// resetting the structs variables after being captured
 			if (players[i].pieces[j].capturable == 1) {
 				players[i].pieces[j].current_position = players[i].pieces[j].base_position; 	
 				players[i].pieces[j].traveled_cells = 0; 	
@@ -174,16 +171,16 @@ int coin_toss() {
     return (rand() % 2);
 }
 
-// The play function orchestrates the entire flow of a game turn. this calls different other functions to make the flow
+
 void play(struct Player *player, int piece_index, int steps, struct Player players[]){
-	land_on_same_cell(player, piece_index, steps, players);	// checks the capturability and vulnarability
+	land_on_same_cell(player, piece_index, steps, players);	
 	int on_board_count = 0;
 	for(int l=0; l<4; l++){
 		if(player->pieces[l].in_base != 1){
 			on_board_count += 1;
 		}
 	}
-	// this logic is when the selected piece is going to capture another piece
+
 	if(player->pieces[piece_index].capture_ability == 1){
 		player->pieces[piece_index].six_counter +=1;
 		if(steps == 6){	
@@ -229,7 +226,7 @@ void play(struct Player *player, int piece_index, int steps, struct Player playe
 			}
 		}
 	}
-	else{		// this is when the piece is not capturing but just moving
+	else{
 		if(steps == 6){	
 			if(player->pieces[piece_index].in_base ==1){
 				printf("%c moves piece %d to the starting point.\n", player->playerid, piece_index);
@@ -354,7 +351,7 @@ void determine_player_order(int starting_player, int order[]) {
 
 
 int rank = 0;  // Make sure rank is global or static if used across multiple function calls
-// checks if the game status is on or not to stop the main loop of the game
+
 int check_game_on(struct Player players[]) {    
     char winner[10] = "";
     int finished_player_count = 0; // Initialize count to zero
@@ -381,7 +378,6 @@ int check_game_on(struct Player players[]) {
     }
 
     if (finished_player_count == 3) { // If exactly three players are finished.
-	/*
         for (int a = 0; a < 4; a++) {  // Iterate through each player
             if (players[a].player_rank != 0) {
                 printf("Player %d rank = %d\n", a, players[a].player_rank);
@@ -389,7 +385,6 @@ int check_game_on(struct Player players[]) {
                 printf("Player %d rank = 4\n", a);
             }
         }
-	*/
 
         for (int t = 0; t < 4; t++) {  // Iterate through each player
             if (players[t].player_rank == 1) {
@@ -554,7 +549,7 @@ void activate_mystery(struct Player *player, int piece_index, struct Player play
 */
 
 
-//main game running function, calls other functions to make the flow
+//main game running function
 void run_game() {
 	// Initialize random number generator
     	initialize_random();
@@ -567,10 +562,6 @@ void run_game() {
     	printf("The Yellow player has four (04) pieces named Y1, Y2, Y3, and Y4\n");
     	printf("The Blue player has four (04) pieces named B1, B2, B3, and B4\n\n");
 
-    	printf("Red player's home straight to home cells are 95-100)\n");
-    	printf("Green player's home straight to home cells are 195-200)\n");
-    	printf("Yellow player's home straight to home cells are 295-300)\n");
-    	printf("Blue player's home straight to home cells are 395-400)\n");
     	// Each player rolls the dice to determine the starting player
     	int initial_rolls[4];
     	for (int i = 0; i < 4; i++) {

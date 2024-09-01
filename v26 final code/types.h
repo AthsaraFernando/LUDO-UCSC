@@ -8,20 +8,20 @@ struct Piece {
     int base_position;         // initial base position (just a negative value to deviate)
     int traveled_cells;        // number of traveled cells 
     int starting_position;     // Starting positions: Y=2, B=15, R=28, G=41
-    int home_start;    	       // Starting positions: Y=2, B=15, R=28, G=41
+    int home_start;     // Starting positions: Y=2, B=15, R=28, G=41
     int no_captured;           // Number of pieces captured by this piece, initialized to 0
     int clockwise;             // Moving direction (1 heads for clockwise, 0 is tail for counterclockwise), not initialized yet
     int approach_position;     // Approach cell position: R=26, G=39, Y=0, B=13
     int six_counter;           // Counter for the number of times a piece has rolled a 6, initialized to 0
     int in_base;               // 1 if still in base, 0 if out of the base
-    int land_same_color_cell;  //to check if the piece will land on a same color piece cell.
+    int land_same_color_cell;
     int capturable;            // Means vulnarable to be captured by another player
     int capture_ability;       // Does have the ability to capture another player's piece 
-    int is_rolling_piece;      // identifier to show the currently moving piece
-    //int energized;	       // energized mystery affect of Bhawana is stored here
-    //int sick;		       // sick mystery affect of Bhawana is stored here
-    //int kotuwa_paused;       // mystery affect of kotuwa is stored here
-    int finished;	       // check if the piece has arived to the home or not.
+    int is_rolling_piece;
+    //int energized;
+    //int sick;
+    //int kotuwa_paused;
+    int finished;
 };
 
 // Define the Player struct, which contains an array of 4 Piece structs
