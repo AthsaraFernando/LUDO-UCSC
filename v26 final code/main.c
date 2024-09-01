@@ -7,8 +7,7 @@ int main() {
 	struct Player players[4];
 	int player_order[4];
 	int initial_rolls[4];
-	
-	// this function holds the main loop of the game
+ 
 	run_game();	
 }
 
