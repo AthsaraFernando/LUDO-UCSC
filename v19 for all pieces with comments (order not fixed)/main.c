@@ -54,11 +54,117 @@ int main() {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//Player Behaviours
+	
 	piece_index = round % 4;		
 	//piece_index = 0;	
 
+	/*
+	// Behaviour of Green Player
+	if(current_player_index == 1){
+		//piece_index = round % 4;		
+		piece_index = 0;	
+		printf("Piece Index = %d\n", piece_index);
+	
+		for(int i=0; i<4 ; i++){
+			land_on_same_cell(&players[current_player_index], i, dice_roll, players);
+			if(players[1].pieces[i].finished != 1 && players[1].pieces[i].land_same_color_cell == 0){
+				if(players[1].pieces[i].in_base == 1){
+					if( dice_roll == 6){
+						piece_index = i;
+						// Resetting the resutls of land_on_same_cell function
+						players[1].pieces[i].land_same_color_cell = 0;	
+						players[1].pieces[i].capture_ability = 0;	
+						for(int k = 0; k < 4; k++) {
+							for(int j = 0; j < 4; j++) {
+								players[k].pieces[j].capturable = 0; 
+							}
+						}
+						break;
+					}	
+				}
+				else{
+					if(players[1].pieces[i].capture_ability == 0){
+						if(players[1].pieces[i].pieceid == round % 4){
+							piece_index = round % 4;
+							break;
+						}
+						else{ 
+							piece_index = players[1].pieces[i].pieceid;
+							// Resetting the resutls of land_on_same_cell function
+							players[1].pieces[i].land_same_color_cell = 0;	
+							players[1].pieces[i].capture_ability = 0;	
+							for(int k = 0; k < 4; k++) {
+								for(int j = 0; j < 4; j++) {
+									players[k].pieces[j].capturable = 0; 
+								}
+							}
+							break;
+						}
+					}
+				}
+			}
+			// Resetting the resutls of land_on_same_cell function
+			players[1].pieces[i].land_same_color_cell = 0;	
+			players[1].pieces[i].capture_ability = 0;	
+			for(int k = 0; k < 4; k++) {
+				for(int j = 0; j < 4; j++) {
+					players[k].pieces[j].capturable = 0; 
+				}
+			}
+		}
 
+		if(piece_index == -1){
+			for(int i=0; i<4 ; i++){
+				if(players[1].pieces[i].finished != 1){
+					if(players[1].pieces[i].in_base == 0){
+						if(players[1].pieces[i].capture_ability == 1){
+							if(players[1].pieces[i].pieceid == round % 4){
+								piece_index = round % 4;
+							}
+							else{ 
+								piece_index = players[1].pieces[i].pieceid;
+							}
+						}
+					}
+				}			
+				// Resetting the resutls of land_on_same_cell function
+				players[1].pieces[i].land_same_color_cell = 0;	
+				players[1].pieces[i].capture_ability = 0;	
+				for(int k = 0; k < 4; k++) {
+					for(int j = 0; j < 4; j++) {
+						players[k].pieces[j].capturable = 0; 
+					}
+				}
+			}
+		}	
+	
+	}
+	
+
+
+	
+	
+	// Behaviour of Red Player
+	else if(current_player_index == 0){
+		//piece_index = round % 4;	
+		piece_index = 0;	
+		printf("Piece Index = %d\n", piece_index);
+	}	
+
+	// Behaviour of Yellow Player
+	else if(current_player_index == 2){
+		//piece_index = round % 4;
+		piece_index = 0;	
+		printf("Piece Index = %d\n", piece_index);
+	}	
+
+	// Behaviour of Blue Player
+	else if(current_player_index == 3){
+		//piece_index = round % 4;
+		piece_index = 0;	
+		printf("Piece Index = %d\n", piece_index);
+	}
+	*/
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	    	

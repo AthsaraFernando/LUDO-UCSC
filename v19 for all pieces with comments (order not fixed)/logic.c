@@ -239,6 +239,7 @@ void play(struct Player *player, int piece_index, int steps, struct Player playe
 		}
 	}
 
+
 	if(player->pieces[piece_index].capture_ability == 1){
 		player->pieces[piece_index].six_counter +=1;
 		if(steps == 6){	
@@ -340,6 +341,156 @@ void play(struct Player *player, int piece_index, int steps, struct Player playe
 	}
 	printf("%c player now has %d/4 of pieces on the board and %d/4 pieces on the base.\n\n", player->playerid, on_board_count, 4-on_board_count);
 	
+
+	/*
+
+	if (player->playerid == 'R') { 
+		
+	if(player->pieces[piece_index].capture_ability == 1){
+		if(steps == 6){	
+			if(player->pieces[piece_index].in_base ==1){
+				player->pieces[piece_index].six_counter +=1;
+				take_out_base(player, piece_index, steps);
+				capture_piece(player, piece_index, steps, players);
+			}
+			else{		
+				player->pieces[piece_index].six_counter +=1;
+				// Move the player's piece 0 by the dice roll value
+            			printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps);
+				move_piece_forward(player, piece_index, steps);
+				capture_piece(player, piece_index, steps, players);
+			} 
+		}
+		else{
+			// Move the player's piece 0 by the dice roll value
+            		printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps); 
+	    		move_piece_forward(player, piece_index, steps);
+			capture_piece(player, piece_index, steps, players);
+		}
+
+		// Resetting the resutls of land_on_same_cell function
+		player->pieces[piece_index].land_same_color_cell = 0;	
+		player->pieces[piece_index].capture_ability = 0;	
+		for(int i = 0; i < 4; i++) {
+		for(int j = 0; j < 4; j++) {
+			players[i].pieces[j].capturable = 0; 
+		}
+		}
+	}
+	else{
+		if(steps == 6){	
+			if(player->pieces[piece_index].in_base ==1){
+				player->pieces[piece_index].six_counter +=1;
+				take_out_base(player, piece_index, steps);
+			}
+			else{		
+				player->pieces[piece_index].six_counter +=1;
+				// Move the player's piece 0 by the dice roll value
+            			printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps);
+				move_piece_forward(player, piece_index, steps);
+			} 
+		}
+		else{
+			// Move the player's piece 0 by the dice roll value
+            		printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps); 
+	    		move_piece_forward(player, piece_index, steps);
+		}
+
+		// Resetting the resutls of land_on_same_cell function
+		player->pieces[piece_index].land_same_color_cell = 0;	
+		player->pieces[piece_index].capture_ability = 0;	
+		for(int i = 0; i < 4; i++) {
+		for(int j = 0; j < 4; j++) {
+			players[i].pieces[j].capturable = 0; 
+		}
+		}
+
+	}
+
+	}
+	else if(player->playerid != 'G'){ 
+		if(steps == 6){	
+			if(player->pieces[piece_index].in_base ==1){
+				player->pieces[piece_index].six_counter +=1;
+				take_out_base(player, piece_index, steps);
+			}
+			else{		
+				player->pieces[piece_index].six_counter +=1;
+				// Move the player's piece 0 by the dice roll value
+            			printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps);
+				move_piece_forward(player, piece_index, steps);
+			} 
+		}
+		else{
+			// Move the player's piece 0 by the dice roll value
+            		printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps); 
+	    		move_piece_forward(player, piece_index, steps);
+		}
+
+		// Resetting the resutls of land_on_same_cell function
+		player->pieces[piece_index].land_same_color_cell = 0;	
+		player->pieces[piece_index].capture_ability = 0;	
+		for(int i = 0; i < 4; i++) {
+		for(int j = 0; j < 4; j++) {
+			players[i].pieces[j].capturable = 0; 
+		}
+		}
+	}
+	else if(player->playerid != 'Y'){ 
+		if(steps == 6){	
+			if(player->pieces[piece_index].in_base ==1){
+				player->pieces[piece_index].six_counter +=1;
+				take_out_base(player, piece_index, steps);
+			}
+			else{		
+				player->pieces[piece_index].six_counter +=1;
+				// Move the player's piece 0 by the dice roll value
+            			printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps);
+				move_piece_forward(player, piece_index, steps);
+			} 
+		}
+		else{
+			// Move the player's piece 0 by the dice roll value
+            		printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps); 
+	    		move_piece_forward(player, piece_index, steps);
+		}
+
+		// Resetting the resutls of land_on_same_cell function
+		player->pieces[piece_index].land_same_color_cell = 0;	
+		for(int i = 0; i < 4; i++) {
+		for(int j = 0; j < 4; j++) {
+			players[i].pieces[j].capturable = 0; 
+		}
+		}
+	}
+
+		else if(player->playerid != 'B'){ 
+		if(steps == 6){	
+			if(player->pieces[piece_index].in_base ==1){
+				player->pieces[piece_index].six_counter +=1;
+				take_out_base(player, piece_index, steps);
+			}
+			else{		
+				player->pieces[piece_index].six_counter +=1;
+				// Move the player's piece 0 by the dice roll value
+            			printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps);
+				move_piece_forward(player, piece_index, steps);
+			} 
+		}
+		else{
+			// Move the player's piece 0 by the dice roll value
+            		printf("Moving Player %c's piece 0 by %d steps...\n", player->playerid, steps); 
+	    		move_piece_forward(player, piece_index, steps);
+		}
+
+		// Resetting the resutls of land_on_same_cell function
+		player->pieces[piece_index].land_same_color_cell = 0;	
+		for(int i = 0; i < 4; i++) {
+		for(int j = 0; j < 4; j++) {
+			players[i].pieces[j].capturable = 0; 
+		}
+		}
+	} */
 }
 
 // Print the current game state for all players and their pieces
